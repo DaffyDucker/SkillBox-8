@@ -72,7 +72,11 @@ namespace SkillBox_Домашнее_Задание_8._4
                 } } }
         public string MobilePhone { 
             get {
-                if (!(mobilephone.Contains("8")) && (!string.IsNullOrWhiteSpace(mobilephone)))this.mobilephone = mobilephone.Insert(0, "8");
+                if (!(mobilephone.StartsWith("8")) && (!string.IsNullOrWhiteSpace(mobilephone)))
+                {
+                    this.mobilephone = mobilephone.Insert(0, "8");
+                }
+                //if (!(mobilephone.Contains("8")) && (!string.IsNullOrWhiteSpace(mobilephone)))this.mobilephone = mobilephone.Insert(0, "8");
                 return this.mobilephone; } 
             set {
                 if (value.Length == 10) this.mobilephone = value;
@@ -84,15 +88,14 @@ namespace SkillBox_Домашнее_Задание_8._4
         public string HomePhone {
             get
             {
-                this.homephone  = string.Format("{0:###-##-##}", HomePhone);
-                
                 return this.homephone;
             }
             set
             {
-                if (value.Length == 7) this.homephone = value;
+                if (value.Length == 9) this.homephone = value;
                 else
                 {
+                    Console.WriteLine(value.Length);
                     Console.WriteLine($"Домашний номер состоит из 7 цифр!"); GetHomePhone();
                 }
             }
@@ -159,26 +162,28 @@ namespace SkillBox_Домашнее_Задание_8._4
         {
         beginHomeNumber:
             Message("HomePhone");
-            if (long.TryParse(Console.ReadLine(), out long numb)) this.HomePhone = numb.ToString();
+            if (long.TryParse(Console.ReadLine(), out long numb)) this.HomePhone = string.Format("{0:#-##-##}", numb);
             else 
             {
                 Console.WriteLine($"Неккоректный ввод!!!Только числа!!!"); goto beginHomeNumber; 
             }
 
-            myHomePhone = new XElement("FlatPhone",this.HomePhone);
+            myHomePhone = new XElement("FlatPhone",HomePhone);
             return myHomePhone;
         }
        
         public XElement xData()
         {
             GetHomePhone();
+            GetMobilePhone();
             GetUserName();
             GetStreet();
             GetHouseNumber();
             GetApartmentNumber();
-            GetMobilePhone();
+            
             
 
+            
             Address = new XElement("Address", myStreet, myHouseNumber, myApartmentNumber);
             Phones = new XElement("Phones", myMobilePhone, myHomePhone);
             

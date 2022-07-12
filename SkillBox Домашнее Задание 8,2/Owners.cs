@@ -56,6 +56,7 @@ namespace SkillBox_Домашнее_Задание_8_2
             {
                 Console.WriteLine($"Неккоректный ввод!!!Только числа!!!"); goto begin1;
             }
+            Console.WriteLine(PhoneNumber);
             while (!(String.IsNullOrWhiteSpace(PhoneNumber)))
             {
                 PhoneNumberList.Add(PhoneNumber);

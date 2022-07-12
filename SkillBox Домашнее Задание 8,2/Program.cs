@@ -15,7 +15,7 @@ namespace SkillBox_Домашнее_Задание_8_2
             Owners dict = new Owners();
             dict.LoadDb();
             dict.Menu();
-            
+
 
         }
     }
